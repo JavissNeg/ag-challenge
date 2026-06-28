@@ -1,0 +1,34 @@
+mat-chip {
+  min-width: 140px;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+}
+
+.active {
+  background: #2e7d32;
+}
+
+.suspended {
+  background: #f9a825;
+}
+
+.company_leave {
+  background: #d32f2f;
+}
+
+.program_leave {
+  background: #ef6c00;
+}
+
+.graduated {
+  background: #1565c0;
+}
+
+.enrolled {
+  background: #616161;
+}
+
+.reenrolled {
+  background: #6a1b9a;
+}
