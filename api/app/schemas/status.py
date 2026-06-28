@@ -1,9 +1,6 @@
-from pydantic import BaseModel, ConfigDict
+from app.schemas.base import CamelModel
 
-
-class StatusRead(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
+class StatusRead(CamelModel):
     id: int
     code: str
     name: str

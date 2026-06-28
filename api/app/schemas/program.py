@@ -1,8 +1,5 @@
-from pydantic import BaseModel, ConfigDict
+from app.schemas.base import CamelModel
 
-
-class ProgramRead(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
+class ProgramRead(CamelModel):
     id: int
     name: str

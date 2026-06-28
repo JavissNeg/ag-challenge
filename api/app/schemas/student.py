@@ -1,9 +1,9 @@
 from datetime import datetime
+from pydantic import Field
 
-from pydantic import BaseModel, ConfigDict, Field
+from app.schemas.base import CamelModel
 
-
-class StudentBase(BaseModel):
+class StudentBase(CamelModel):
     first_name: str = Field(min_length=1, max_length=80)
     last_name: str = Field(min_length=1, max_length=120)
     company_id: int
@@ -17,9 +17,7 @@ class StudentUpdate(StudentBase):
     pass
 
 
-class StudentRead(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
+class StudentRead(CamelModel):
     id: int
     first_name: str
     last_name: str

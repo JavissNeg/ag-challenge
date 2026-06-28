@@ -1,16 +1,14 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict
+from app.schemas.base import CamelModel
 
 
-class StatusChangeCreate(BaseModel):
+class StatusChangeCreate(CamelModel):
     new_status_code: str
     reason: str
 
 
-class StatusHistoryRead(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
+class StatusHistoryRead(CamelModel):
     id: int
     enrollment_id: int
     previous_status_id: int | None

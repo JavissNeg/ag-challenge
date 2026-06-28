@@ -1,0 +1,68 @@
+<p>summary-cards works!</p>
+@if (summary$ | async; as summary) {
+
+<div class="summary-grid">
+
+    <mat-card>
+        <mat-card-content>
+            <mat-icon>groups</mat-icon>
+
+            <h2>{{ summary.total }}</h2>
+
+            <span>Total</span>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+            <mat-icon>school</mat-icon>
+
+            <h2>{{ summary.active }}</h2>
+
+            <span>Activos</span>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+            <mat-icon>business</mat-icon>
+
+            <h2>{{ summary.companyLeave }}</h2>
+
+            <span>Baja empresa</span>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+            <mat-icon>logout</mat-icon>
+
+            <h2>{{ summary.programLeave }}</h2>
+
+            <span>Baja programa</span>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+            <mat-icon>pause_circle</mat-icon>
+
+            <h2>{{ summary.suspended }}</h2>
+
+            <span>Suspendidos</span>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+            <mat-icon>workspace_premium</mat-icon>
+
+            <h2>{{ summary.graduated }}</h2>
+
+            <span>Egresados</span>
+        </mat-card-content>
+    </mat-card>
+
+</div>
+
+}

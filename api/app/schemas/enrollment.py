@@ -1,9 +1,9 @@
 from datetime import date, datetime
 
-from pydantic import BaseModel, ConfigDict
+from app.schemas.base import CamelModel
 
 
-class EnrollmentBase(BaseModel):
+class EnrollmentBase(CamelModel):
     student_id: int
     program_id: int
     status_id: int
@@ -18,9 +18,7 @@ class EnrollmentUpdate(EnrollmentBase):
     pass
 
 
-class EnrollmentRead(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
+class EnrollmentRead(CamelModel):
     id: int
     student_id: int
     student_name: str
