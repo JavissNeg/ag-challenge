@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     db_name: str = "db"
     db_user: str = "user"
     db_password: str = "pass"
+    cors_origins: str = "http://127.0.0.1:4200"
 
     @property
     def database_url(self) -> str:
@@ -18,6 +19,10 @@ class Settings(BaseSettings):
             f"mysql+pymysql://{self.db_user}:{self.db_password}"
             f"@{self.db_host}:{self.db_port}/{self.db_name}"
         )
+
+    @property
+    def cors_allow_origins(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
 
 
 @lru_cache
