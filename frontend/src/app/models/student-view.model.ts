@@ -1,10 +1,15 @@
 export interface IStudentView {
-    id: number;
+    studentId: number;
     firstName: string;
     lastName: string;
     fullName: string;
-    company: string;
-    program: string;
-    status: string;
+    companyId: number;
+    companyName: string;
+    enrollmentId: number;
+    programId: number;
+    programName: string;
+    statusId: number;
+    statusCode: string;
+    statusName: string;
     enrollmentDate: Date;
 }
