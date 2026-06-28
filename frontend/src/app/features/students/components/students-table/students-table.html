@@ -1,0 +1,104 @@
+<mat-toolbar class="toolbar">
+  <span>Students</span>
+
+  <span class="spacer"></span>
+
+  <button mat-flat-button color="primary" (click)="registerStudent()">
+    <mat-icon>person_add</mat-icon>
+
+    Register Student
+  </button>
+</mat-toolbar>
+
+<div class="filters">
+  <mat-form-field appearance="outline">
+    <mat-label>Search student</mat-label>
+
+    <input matInput [formControl]="searchControl" placeholder="Name" />
+
+    <mat-icon matSuffix> search </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Program</mat-label>
+
+    <mat-select [formControl]="programControl">
+      <mat-option value=""> All </mat-option>
+
+      @for (program of (store.state$ | async)?.programs; track program.id) {
+        <mat-option [value]="program.name">
+          {{ program.name }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+
+    <mat-select [formControl]="statusControl">
+      <mat-option value=""> All </mat-option>
+
+      @for (status of (store.state$ | async)?.statuses; track status.id) {
+        <mat-option [value]="status.code">
+          {{ status.name }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="table-container">
+  <table mat-table matSort [dataSource]="dataSource">
+    <!-- Student -->
+    <ng-container matColumnDef="student">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Student</th>
+
+      <td mat-cell *matCellDef="let student">
+        {{ student.fullName }}
+      </td>
+    </ng-container>
+
+    <!-- Company -->
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Company</th>
+
+      <td mat-cell *matCellDef="let student">
+        {{ student.companyName }}
+      </td>
+    </ng-container>
+
+    <!-- Program -->
+    <ng-container matColumnDef="program">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Program</th>
+
+      <td mat-cell *matCellDef="let student">
+        {{ student.programName }}
+      </td>
+    </ng-container>
+
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+
+      <td mat-cell *matCellDef="let student">
+        <app-status-chip [code]="student.statusCode"> </app-status-chip>
+      </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+
+      <td mat-cell *matCellDef="let student">
+        <button mat-icon-button color="primary" (click)="changeStatus(student)">
+          <mat-icon> edit </mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
