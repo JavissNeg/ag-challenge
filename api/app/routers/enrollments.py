@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
@@ -204,6 +205,7 @@ def change_enrollment_status(enrollment_id: int, payload: StatusChangeCreate, db
         enrollment_id=enrollment.id,
         previous_status_id=enrollment.status_id,
         new_status_id=new_status.id,
+        changed_at=datetime.now(),
         reason=payload.reason,
     )
     enrollment.status_id = new_status.id
