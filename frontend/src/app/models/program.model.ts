@@ -1,4 +1,4 @@
-export interface Program {
+export interface IProgram {
     id: number;
     name: string;
 }

@@ -1,4 +1,4 @@
-export interface Enrollment {
+export interface IEnrollment {
     id: number;
     studentId: number;
     programId: number;

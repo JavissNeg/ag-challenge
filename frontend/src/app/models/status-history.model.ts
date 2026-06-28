@@ -1,4 +1,4 @@
-export interface StatusHistory {
+export interface IStatusHistory {
     id: number;
     enrollmentId: number;
     previousStatusId: number | null;
