@@ -1,0 +1,25 @@
+services:
+  mariadb:
+    image: mariadb:11.8
+    container_name: ag-mariadb
+
+    restart: unless-stopped
+
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: ag_db
+      MARIADB_USER: ag_user
+      MARIADB_PASSWORD: ag_password
+    
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - ./data:/var/lib/mysql:Z
+      - ./init:/docker-entrypoint-initdb.d:Z
+
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
