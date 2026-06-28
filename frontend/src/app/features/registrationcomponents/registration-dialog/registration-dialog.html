@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Register Student</h2>
+
+<mat-dialog-content>
+  <app-registration-form> </app-registration-form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancel</button>
+
+  <button mat-flat-button color="primary" (click)="save()">Register</button>
+</mat-dialog-actions>
