@@ -2,6 +2,18 @@ table {
     width: 100%;
 }
 
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
 th {
     font-weight: 600;
 }

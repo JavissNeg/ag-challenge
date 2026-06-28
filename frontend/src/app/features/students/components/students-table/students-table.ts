@@ -18,6 +18,9 @@ import { StudentStore } from '../../../../stores/student-store';
 import { IStudentView } from '../../../../models/student-view.model';
 import { StatusChip } from '../../../../shared/components/status-chip/status-chip';
 
+import { RegistrationDialog } from '../../../registration/components/registration-dialog/registration-dialog';
+import { ChangeStatusDialog } from '../../../change-status/components/change-status-dialog/change-status-dialog';
+
 @Component({
     selector: 'app-students-table',
     standalone: true,
@@ -114,13 +117,26 @@ export class StudentsTable implements AfterViewInit {
     }
 
     registerStudent(): void {
-		// TODO: Implement the logic to register a new student
+		this.dialog.open(
+            RegistrationDialog,
+            {
+                width: '720px',
+                disableClose: true
+            }
+        );
     }
 
     changeStatus(
         student: IStudentView
     ): void {
-		// TODO: Implement the logic to change the status of a student
+		this.dialog.open(
+            ChangeStatusDialog,
+            {
+                width: '600px',
+                disableClose: true,
+                data: student
+            }
+        );
     }
 
 }
