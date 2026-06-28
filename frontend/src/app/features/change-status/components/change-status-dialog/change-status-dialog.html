@@ -1,1 +1,11 @@
-<p>change-status-dialog works!</p>
+<h2 mat-dialog-title>Change Status</h2>
+
+<mat-dialog-content>
+  <app-change-status-form> </app-change-status-form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancel</button>
+
+  <button mat-flat-button color="primary" (click)="save()">Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,19 @@
+<form class="form" [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+
+    <mat-select formControlName="statusId">
+      @for (status of (store.state$ | async)?.statuses; track status.id) {
+        <mat-option [value]="status.id">
+          {{ status.name }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full">
+    <mat-label>Reason</mat-label>
+
+    <textarea matInput rows="5" formControlName="reason"> </textarea>
+  </mat-form-field>
+</form>

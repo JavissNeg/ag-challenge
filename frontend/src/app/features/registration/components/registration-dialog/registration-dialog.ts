@@ -2,9 +2,9 @@ import { Component, inject } from '@angular/core';
 
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-  
-import { RegistrationForm } from '../../registration/components/registration-form/registration-form';
 
+import { RegistrationForm } from '../registration-form/registration-form';
+  
 
 @Component({
   selector: 'app-registration-dialog',

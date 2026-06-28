@@ -1,9 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
+import { IStudentView } from '../../../../models/student-view.model';
+
+import { ChangeStatusForm } from '../change-status-form/change-status-form';
+
 
 @Component({
   selector: 'app-change-status-dialog',
-  imports: [],
+  standalone: true,
   templateUrl: './change-status-dialog.html',
   styleUrl: './change-status-dialog.scss',
+  imports: [MatDialogModule, MatButtonModule, ChangeStatusForm],
 })
-export class ChangeStatusDialog {}
+export class ChangeStatusDialog {
+  readonly student = inject<IStudentView>(MAT_DIALOG_DATA);
+
+  private readonly dialogRef = inject(MatDialogRef<ChangeStatusDialog>);
+
+  close(): void {
+    this.dialogRef.close();
+  }
+
+  save(): void {
+    // TODO
+  }
+}
