@@ -5,3 +5,8 @@ export interface IEnrollment {
     statusId: number;
     enrollmentDate: Date;
 }
+
+export interface IChangeStatusRequest {
+    newStatusCode: string;
+    reason: string;
+}

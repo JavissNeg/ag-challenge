@@ -9,11 +9,15 @@ class StudentBase(CamelModel):
     company_id: int
 
 
-class StudentCreate(StudentBase):
+class StudentCreate(CamelModel):
     id: int
+    first_name: str 
+    last_name: str
+    program_id: int
+    company_id: int 
 
 
-class StudentUpdate(StudentBase):
+class StudentUpdate(CamelModel):
     pass
 
 

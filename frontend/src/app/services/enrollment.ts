@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Api } from './api';
 
-import { IEnrollment } from '../models/enrollment.model';
+import { IChangeStatusRequest, IEnrollment } from '../models/enrollment.model';
 import { IStatusHistory } from '../models/status-history.model';
 
 @Service()
@@ -22,13 +22,6 @@ export class Enrollment extends Api {
         );
     }
 
-    create(enrollment: IEnrollment): Observable<IEnrollment> {
-        return this.http.post<IEnrollment>(
-            `${this.apiUrl}/enrollments`,
-            enrollment
-        );
-    }
-
     update(
         id: number,
         enrollment: IEnrollment
@@ -42,16 +35,11 @@ export class Enrollment extends Api {
 
     changeStatus(
         enrollmentId: number,
-        statusCode: string,
-        reason: string
+        request: IChangeStatusRequest
     ): Observable<IStatusHistory> {
-
         return this.http.post<IStatusHistory>(
             `${this.apiUrl}/enrollments/${enrollmentId}/status`,
-            {
-                status_code: statusCode,
-                reason
-            }
+            request
         );
     }
 

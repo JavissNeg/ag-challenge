@@ -10,11 +10,11 @@ class EnrollmentBase(CamelModel):
     enrollment_date: date
 
 
-class EnrollmentCreate(EnrollmentBase):
+class EnrollmentCreate(CamelModel):
     pass
 
 
-class EnrollmentUpdate(EnrollmentBase):
+class EnrollmentUpdate(CamelModel):
     pass
 
 

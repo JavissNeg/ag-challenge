@@ -1,9 +1,13 @@
+from datetime import date
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import selectinload
 
+from app.models.enrollment import Enrollment
+from app.models.status import Status
 from app.core.database import get_db
 from app.models.company import Company
 from app.models.student import Student
@@ -56,20 +60,11 @@ def get_student(student_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Student not found")
     return _serialize_student(student)
 
-
 @router.post("", response_model=StudentRead, status_code=status.HTTP_201_CREATED)
 def create_student(payload: StudentCreate, db: Session = Depends(get_db)):
-    existing_student = (
-        db.execute(select(Student).where(Student.id == payload.id))
-        .scalars()
-        .first()
-    )
-    if existing_student is not None:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Student already exists")
-
     company = db.get(Company, payload.company_id)
     if company is None:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Company not found")
+        raise HTTPException(status_code=400, detail="Company not found")
 
     student = Student(
         id=payload.id,
@@ -77,13 +72,31 @@ def create_student(payload: StudentCreate, db: Session = Depends(get_db)):
         last_name=payload.last_name,
         company_id=payload.company_id,
     )
+
     db.add(student)
+    db.flush()  
+
+    enrolled_status = db.execute(
+        select(Status).where(Status.code == "ENROLLED")
+    ).scalars().first()
+
+    if enrolled_status is None:
+        raise HTTPException(status_code=500, detail="Default status not found")
+
+    enrollment = Enrollment(
+        student_id=student.id,
+        program_id=payload.program_id, 
+        status_id=enrolled_status.id,
+        enrollment_date=date.today()
+    )
+
+    db.add(enrollment)
 
     try:
         db.commit()
     except IntegrityError as exc:
         db.rollback()
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Unable to create student") from exc
+        raise HTTPException(status_code=409, detail="Unable to create student") from exc
 
     db.refresh(student)
     student.company = company

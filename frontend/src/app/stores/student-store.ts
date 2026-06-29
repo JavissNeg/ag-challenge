@@ -6,11 +6,11 @@ import { AppState } from '../models/app-state.model';
 import { IStudentView } from '../models/student-view.model';
 import { ISummary } from '../models/summary.model';
 import { Enrollment } from './../services/enrollment';
-import { IStudent } from '../models/student.model';
+import { ICreateStudentRequest, IStudent, IUpdateStudentRequest } from '../models/student.model';
 import { ICompany } from '../models/company.model';
 import { IProgram } from '../models/program.model';
 import { IStatus } from '../models/status.model';
-import { IEnrollment } from '../models/enrollment.model';
+import { IChangeStatusRequest, IEnrollment } from '../models/enrollment.model';
 
 import { Student } from './../services/student';
 import { Company } from './../services/company';
@@ -137,6 +137,72 @@ export class StudentStore {
             suspended: studentViews.filter(s => s.statusCode === 'SUSPENDED').length,
             total: studentViews.length
         };
+    }
+
+    refresh(): void {
+        this.load();
+    }
+
+    registerStudent(
+        student: ICreateStudentRequest,
+    ): void {
+
+        this.studentService
+            .create(student)
+            .subscribe({
+                next: () => this.refresh(),
+                error: error => console.error(error)
+            });
+    }
+
+    updateStudent(
+        id: number,
+        student: IUpdateStudentRequest
+    ): void {
+
+        this.studentService
+            .update(id, student)
+            .subscribe({
+
+                next: () => this.refresh(),
+
+                error: error => console.error(error)
+
+            });
+
+    }
+
+    deleteStudent(
+        id: number
+    ): void {
+
+        this.studentService
+            .delete(id)
+            .subscribe({
+
+                next: () => this.refresh(),
+
+                error: error => console.error(error)
+
+            });
+
+    }
+
+    changeStatus(
+        enrollmentId: number,
+        request: IChangeStatusRequest
+    ): void {
+
+        this.enrollmentService
+            .changeStatus(
+                enrollmentId,
+                request
+            )
+            .subscribe({
+                next: () => this.refresh(),
+                error: error => console.error(error)
+            });
+
     }
 
 }

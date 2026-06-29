@@ -4,3 +4,8 @@ export interface IStatus {
     name: string;
     description: string;
 }
+
+export interface IChangeStatusRequest {
+    newStatusCode: string;
+    reason: string;
+}

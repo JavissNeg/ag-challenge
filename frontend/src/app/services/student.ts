@@ -3,7 +3,7 @@ import { Service } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Api } from './api';
-import { IStudent } from '../models/student.model';
+import { ICreateStudentRequest, IStudent, IUpdateStudentRequest } from '../models/student.model';
 
 @Service()
 export class Student extends Api {
@@ -20,7 +20,7 @@ export class Student extends Api {
         );
     }
 
-    create(student: IStudent): Observable<IStudent> {
+    create(student: ICreateStudentRequest): Observable<IStudent> {
         return this.http.post<IStudent>(
             `${this.apiUrl}/students`,
             student
@@ -29,7 +29,7 @@ export class Student extends Api {
 
     update(
         id: number,
-        student: IStudent
+        student: IUpdateStudentRequest
     ): Observable<IStudent> {
         return this.http.put<IStudent>(
             `${this.apiUrl}/students/${id}`,
@@ -37,8 +37,8 @@ export class Student extends Api {
         );
     }
 
-    delete(id: number): Observable<void> {
-        return this.http.delete<void>(
+    delete(id: number): Observable<number> {
+        return this.http.delete<number>(
             `${this.apiUrl}/students/${id}`
         );
     }
