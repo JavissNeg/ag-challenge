@@ -29,4 +29,12 @@ export class ChangeStatusForm implements OnInit {
   ngOnInit(): void {
     this.store.load();
   }
+
+  get value() {
+    return this.form.getRawValue();
+  }
+
+  get valid(): boolean {
+    return this.form.valid;
+  }
 }
