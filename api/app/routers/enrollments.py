@@ -216,7 +216,7 @@ def change_enrollment_status(enrollment_id: int, payload: StatusChangeCreate, db
     except IntegrityError as exc:
         db.rollback()
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Unable to change enrollment status") from exc
-
+    
     db.refresh(enrollment)
     db.refresh(history)
     history.previous_status = db.get(Status, history.previous_status_id) if history.previous_status_id else None

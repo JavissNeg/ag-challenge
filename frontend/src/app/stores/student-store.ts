@@ -189,13 +189,13 @@ export class StudentStore {
     }
 
     changeStatus(
-        enrollmentId: number,
+        studentId: number,
         request: IChangeStatusRequest
     ): void {
 
         this.enrollmentService
             .changeStatus(
-                enrollmentId,
+                studentId,
                 request
             )
             .subscribe({

@@ -157,10 +157,8 @@ export class StudentsTable implements AfterViewInit {
                 return;
             }   
 
-            console.log(result.statusCode, result.reason);
-
             const request: IChangeStatusRequest = {
-                newStatusCode: result.statusCode,
+                newStatusCode: student.statusCode,
                 reason: result.reason
             };
 
