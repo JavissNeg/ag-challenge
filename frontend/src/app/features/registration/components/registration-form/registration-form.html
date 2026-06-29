@@ -1,18 +1,24 @@
 <form class="form" [formGroup]="form">
   <mat-form-field appearance="outline">
-    <mat-label>First name</mat-label>
+    <mat-label>Matrícula</mat-label>
+
+    <input matInput formControlName="id" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
 
     <input matInput formControlName="firstName" />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Last name</mat-label>
+    <mat-label>Apellido</mat-label>
 
     <input matInput formControlName="lastName" />
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Company</mat-label>
+    <mat-label>Compañía</mat-label>
 
     <mat-select formControlName="companyId">
       @for (company of (store.state$ | async)?.companies; track company.id) {
@@ -24,7 +30,7 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Program</mat-label>
+    <mat-label>Programa</mat-label>
 
     <mat-select formControlName="programId">
       @for (program of (store.state$ | async)?.programs; track program.id) {
@@ -36,7 +42,7 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full">
-    <mat-label>Enrollment date</mat-label>
+    <mat-label>Fecha de inscripción</mat-label>
 
     <input matInput [matDatepicker]="picker" formControlName="enrollmentDate" />
 

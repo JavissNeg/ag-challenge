@@ -10,7 +10,7 @@ describe('RegistrationDialog', () => {
     await TestBed.configureTestingModule({
       imports: [RegistrationDialog],
     }).compileComponents();
-
+    
     fixture = TestBed.createComponent(RegistrationDialog);
     component = fixture.componentInstance;
     await fixture.whenStable();

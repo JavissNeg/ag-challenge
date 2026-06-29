@@ -31,6 +31,7 @@ export class RegistrationForm implements OnInit {
   private readonly fb = inject(FormBuilder);
 
   readonly form = this.fb.nonNullable.group({
+    id: [0, Validators.min(1)],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     companyId: [0, Validators.min(1)],
@@ -40,5 +41,13 @@ export class RegistrationForm implements OnInit {
 
   ngOnInit(): void {
     this.store.load();
+  }
+
+  get value() {
+    return this.form.getRawValue();
+  }
+
+  get valid(): boolean {
+    return this.form.valid;
   }
 }
