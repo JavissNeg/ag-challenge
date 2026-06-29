@@ -20,6 +20,7 @@ import { StatusChip } from '../../../../shared/components/status-chip/status-chi
 
 import { RegistrationDialog } from '../../../registration/components/registration-dialog/registration-dialog';
 import { ChangeStatusDialog } from '../../../change-status/components/change-status-dialog/change-status-dialog';
+import { IChangeStatusRequest } from '../../../../models/enrollment.model';
 
 @Component({
     selector: 'app-students-table',
@@ -117,26 +118,56 @@ export class StudentsTable implements AfterViewInit {
     }
 
     registerStudent(): void {
-		this.dialog.open(
-            RegistrationDialog,
-            {
-                width: '720px',
-                disableClose: true
-            }
-        );
+        this.dialog
+            .open(
+                RegistrationDialog,
+                {
+                    width: '720px',
+                    disableClose: true
+                }
+            )
+            .afterClosed()
+            .subscribe(result => {
+
+                if (!result) {
+                    return;
+                }
+                
+                this.store.registerStudent(
+                    result.student
+                );
+            });
     }
 
     changeStatus(
         student: IStudentView
     ): void {
-		this.dialog.open(
+		this.dialog
+        .open(
             ChangeStatusDialog,
             {
                 width: '600px',
                 disableClose: true,
                 data: student
             }
-        );
+        )
+        .afterClosed()
+        .subscribe(result => {
+            if (!result) {
+                return;
+            }   
+
+            console.log(result.statusCode, result.reason);
+
+            const request: IChangeStatusRequest = {
+                newStatusCode: result.statusCode,
+                reason: result.reason
+            };
+
+            this.store.changeStatus(
+                student.enrollmentId, request
+            );
+        });
     }
 
 }
